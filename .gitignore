@@ -1,1 +1,3 @@
 *.ipynb
+service_account_key.json
+/venv/*
