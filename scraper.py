@@ -65,7 +65,7 @@ def read_all_days() -> pd.DataFrame:
 	return df
 
 
-def display_current_standings():
+def get_current_standings():
 	df = read_all_days()
 	return (
 		df.melt(id_vars=["Name"], value_vars=[x for x in df.columns if x != "Name"], var_name="Match", value_name="Tip")
