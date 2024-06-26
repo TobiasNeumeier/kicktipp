@@ -46,6 +46,9 @@ app.layout = html.Div(children=[
 	)
 ])
 
+# Expose the Flask server (app.server) for WSGI
+server = app.server
+
 # Run the app
 if __name__ == '__main__':
 	app.run_server(debug=True)
