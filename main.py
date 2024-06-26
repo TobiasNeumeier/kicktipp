@@ -5,7 +5,7 @@ from scraper import update_data
 
 # Function to run the Dash app
 def run_dash_app():
-	app.app.run_server(host="0.0.0.0", debug=False, use_reloader=False, port=80)
+	app.app.run_server(host="localhost", debug=False, use_reloader=False, port=8080)
 
 
 # Function to run the update data scheduler
