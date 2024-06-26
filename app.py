@@ -33,7 +33,7 @@ def update_data() -> pd.DataFrame:
 			"Total Tips Possible": lambda _df: max(_df["Total Tips Submitted"]),
 			"V-Mann Relative Frequency": lambda _df: _df["V-Mann Count"] / _df["Total Tips Possible"]
 		})
-		.sort_values("V-Mann Count", ascending=False)
+		.sort_values("V-Mann Count", ascending=True)
 	)
 
 
@@ -41,7 +41,7 @@ def update_data() -> pd.DataFrame:
 	Output('live-vmann-graph', 'figure'),
 	Input('interval-component', 'n_intervals')
 )
-def update_bar_chart():
+def update_bar_chart(n_intervals):
 	df = update_data()
 	# Create a horizontal bar chart
 	trace = go.Bar(
@@ -53,10 +53,22 @@ def update_bar_chart():
 	
 	layout = go.Layout(
 		title="Wer ist der V-Mann des Games?",
-		xaxis=dict(title="Wie krass V-Mann"),
-		margin=dict(l=150)  # Adjust margin to accommodate longer labels
+		xaxis=dict(
+			title="Wie krass V-Mann\n(2:1 Tipps in %)",
+			range=[0, 1],
+			tickformat=",.0%"
+		),
+		margin=dict(l=150),  # Adjust margin to accommodate longer labels
+		bargap=0.4,
+		yaxis=dict(
+			title="Name",
+			automargin=True,
+			tickmode="array",
+			tickvals=df.index,
+			ticktext=df.index,
+			tickfont=dict(size=14)
+		)
 	)
-	
 	fig = go.Figure(data=[trace], layout=layout)
 	return fig
 
